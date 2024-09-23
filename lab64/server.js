@@ -7,32 +7,32 @@ const server = http.createServer((req,res)=>{
     if (req.url==='/') {
         res.statusCode = 200;
         res.writeHead(200, { 'Content-Type':'text/html'});
-        html = fs.readFileSync('./index.html');
+        var html = fs.readFileSync('./public/index.html');
         res.end(html);
     }
-    if (req.url==='/about') {
+    else if (req.url==='/about') {
         res.statusCode = 200;
-        res.setHeader('Content-Type','text/plain; charset=utf-8');
-        res.end('Você está na página sobre')
+        res.setHeader('Content-Type','text/html; charset=utf-8');
+        res.end('<h1>Você está na página sobre</h1><p>Aqui você encontrará Informações sobre nós</p>')
     }
-    if(req.method === 'POST' && req.url === '/upload') {
+    else if (req.method === 'POST' && req.url === '/upload') {
         let fileData = '';
         req.on('data',chunk => {
             fileData += chunk.toString()
         });
         req.on('end', ()=> {
             res.statusCode = 200;
-            res.setHeader ('Content-Type','text/plain; charset=utf-8');
+            res.setHeader ('Content-Type','text/html; charset=utf-8');
             res.end('Upload simulado com sucesso!');
         });
     }
     else {
         res.statusCode = 404;
-        res.setHeader('Content-Type','text/plain; charset=utf-8');
-        res.end('Rota nâo encontrada');
+        res.setHeader('Content-Type','text/html; charset=utf-8');
+        res.end('<h1>ERRO 404:</h1><p>Página não encontrada</p>');
     }
 });
 
-server.listen(port, hostname, ()=> {
-    console.log(`Servidor rodando em http://${hostname}:${port}/`);
+server.listen(PORT, hostname, ()=> {
+    console.log(`Servidor rodando em http://${hostname}:${PORT}/`);
 });
