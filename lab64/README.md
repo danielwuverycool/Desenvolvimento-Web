@@ -3,7 +3,7 @@
 
 Funcionamento:
 
-Calculadora:
+Página Principal (Calculadora):
 ```bash
   curl http://127.0.0.1:3000/
 
